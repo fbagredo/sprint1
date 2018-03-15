@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+  <form method="get">
+    <div class="well">
+      <h4 style="margin-top: 0">Filter</h4>
+      <div class="row">
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.nombre.label_tag }}
+          {% render_field filter.form.nombre class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.descripcion.label_tag }}
+          {% render_field filter.form.descripcion class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.tipoProducto.label_tag }}
+          {% render_field filter.form.tipoProducto class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.medidas.label_tag }}
+          {% render_field filter.form.medidas class="form-control" %}
+        </div>
+       </div>
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span> Consultar
+      </button>
+    </div>
+  </form>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Tipo de producto</th>
+        <th>medidas</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for producto in filter.qs %}
+        <tr>
+          <td>{{ producto.nombre }}</td>
+          <td>{{ producto.descripcion }}</td>
+          <td>{{ producto.tipoProducto }}</td>
+          <td>{{ producto.medidas }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No data</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

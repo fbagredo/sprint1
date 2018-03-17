@@ -1,4 +1,4 @@
-from inventario.models import Producto, registroProducto
+from inventario.models import Producto, Proveedor
 import django_filters
 from django import forms
 
@@ -8,6 +8,8 @@ class ProductoFilter(django_filters.FilterSet):
     descripcion = django_filters.CharFilter(lookup_expr='icontains')
     tipoProducto = django_filters.CharFilter(lookup_expr='icontains')
     medidas = django_filters.CharFilter(lookup_expr='icontains')
+    proveedor = django_filters.ModelMultipleChoiceFilter(queryset=Proveedor.objects.all(),
+    widget=forms.CheckboxSelectMultiple)
     
     class Meta:
         model = Producto

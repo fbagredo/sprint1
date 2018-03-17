@@ -26,6 +26,15 @@
           {% render_field filter.form.medidas class="form-control" %}
         </div>
        </div>
+       <div class="form-group col-sm-8 col-md-6">
+          {{ filter.form.proveedor.label_tag }}
+          <div>
+            {% for choice in filter.form.proveedor %}
+              <label class="checkbox-inline">
+                {{ choice.tag }} {{ choice.choice_label }}
+              </label>
+            {% endfor %}
+          </div>
       <button type="submit" class="btn btn-primary">
         <span class="glyphicon glyphicon-search"></span> Consultar
       </button>
@@ -39,6 +48,7 @@
         <th>Descripcion</th>
         <th>Tipo de producto</th>
         <th>medidas</th>
+        <th>Proveedores</th>
       </tr>
     </thead>
     <tbody>
@@ -48,6 +58,13 @@
           <td>{{ producto.descripcion }}</td>
           <td>{{ producto.tipoProducto }}</td>
           <td>{{ producto.medidas }}</td>
+          <td>
+            {% for proveedor in producto.proveedores.all %}
+              {{ proveedor }}
+            {% empty %}
+              <em class="text-muted">Sin proveedor</em>
+            {% endfor %}
+          </td>
         </tr>
       {% empty %}
         <tr>
